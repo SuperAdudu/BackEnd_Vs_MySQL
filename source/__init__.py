@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
-
+from flask_migrate import Migrate
 db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
@@ -10,7 +10,8 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
-
+    migrate = Migrate(app, db)
+    
     from source.main.controllers import register_routes
     register_routes(app)
     
