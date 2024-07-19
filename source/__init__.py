@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
+
 db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
@@ -9,9 +10,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
-    
-    with app.app_context():
-        db.create_all()
+
     from source.main.controllers import register_routes
     register_routes(app)
     
